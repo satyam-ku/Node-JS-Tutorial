@@ -4,6 +4,11 @@ app.listen(8080,()=>{
     console.log("Server started...");
 })
 
+app.get("/",(request,response) => {
+    console.log(request.url)
+    response.send("Response from server for /.")
+})
+
 app.get("/home",(request,response) => {
     console.log(request.url)
     response.send("Response from server for /home .")
