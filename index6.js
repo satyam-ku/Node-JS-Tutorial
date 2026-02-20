@@ -9,5 +9,11 @@ app.listen(8080, () => {
 // })
 
 app.get("/", (request,response) => {
+    // http://localhost:8080/?name=satyam
     response.send("Hello "+request.query.name);
+})
+
+app.get("/", (request,response) => {
+    // http://localhost:8080/?name=satyam&age=20
+    response.send("Hello "+request.query.name + request.query.age);
 })
