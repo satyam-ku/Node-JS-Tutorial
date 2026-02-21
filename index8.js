@@ -5,7 +5,7 @@ app.listen(8081, () => {
     console.log("Server Started....")
 })
 
-app.use(express.json())
+app.use(express.json()) // -> milddleware, it converts the json data into js object.
 const users = [
     {id:1,name: "avi",
     email: "avi@mail.com",
@@ -39,9 +39,6 @@ app.get("/:id",(request,response) => {
 })  
 
 app.delete("/:id",(request,response) => {
-    const user = users.find((user) => user.id === Number(request.params.id));
-    if(user){
-        users.pop(user)
-        response.json(users)
-    }
+   users = users.filter((users)=>{users.id !== Number(request.params.id)});
+   response.json(users);
 })
