@@ -1,7 +1,8 @@
+import {users} from "../models/userModel.js"
 export const getUsers = (request, response) => {
-    response.send("This is GET request of users");
+     response.json(users);
 };
 
 export const postUsers = (request, response) => {
-    response.send("This is POST request of users");
+    response.json(users);
 };

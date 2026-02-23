@@ -1,5 +1,6 @@
+import {products} from "../models/productModel.js"
 export const getProducts = (request, response) => {
-    response.send("This is GET request of products");
+    response.json(products);
 };
 
 export const postProducts = (request, response) => {
