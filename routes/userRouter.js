@@ -1,12 +1,9 @@
+import express from "express";
+import { getUsers, postUsers } from "../controllers/userController.js";
 
-import express from "express"
-const userRouter = express.Router()
+const userRouter = express.Router();
 
-userRouter.get("/",(request,response) => {
-    response.send("This is get Request..of users")
-})
+userRouter.get("/", getUsers);
+userRouter.post("/", postUsers);
 
-userRouter.post("/",(request,response) => {
-    response.send("This is post Request..od users")
-})
 export default userRouter;
