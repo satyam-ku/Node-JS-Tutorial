@@ -2,19 +2,21 @@ import express from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 const secretKey = "mysecretkey";
-
+import { authorize } from ".middleware/auth.js";
 const app = express();
 app.listen(8080, () => {
   console.log("server is starting");
 });
+
 const middleware = (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (!authHeader)
     return res.status(401).json({ message: "Authorization header missing" });
   const token = authHeader.split(" ")[1];
   try {
-    jwt.verify(token, secretKey);
+    const user = jwt.verify(token, secretKey);
     console.log("middleware executed");
+    req.user = user;
     next();
   } catch (err) {
     res.status(401).json({ message: "Invalid token" });
@@ -45,6 +47,6 @@ app.post("/login", async (req, res) => {
 app.get("/", middleware, (req, res) => {
   res.json({ message: "welcome to home page" });
 });
-app.get("/users", (req, res) => {
+app.get("/users", middleware, authorize("admin", "manager"), (req, res) => {
   res.json(users);
 });
